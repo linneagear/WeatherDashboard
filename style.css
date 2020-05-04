@@ -1,0 +1,28 @@
+.heading {
+    text-align: center;
+    background: rgb(41, 41, 41);
+    color: white;
+    padding: 20px;
+}
+
+.container {
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.card {
+    margin: 10px;
+    padding: 10px;
+}
+
+#button-addon2 {
+    background: rgb(86, 150, 247);
+}
+
+.fa-search {
+    color: white;
+}
+
+.hidden {
+    display: none;
+}

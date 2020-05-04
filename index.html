@@ -1,11 +1,61 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
+    <title>Weather Dashboard</title>
+    <!-- Bootstrap Link -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
+    <!-- Font Awesome link -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+        integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous" />
     
+      
+    <link rel="stylesheet" href="./style.css">
+</head>
+
+<body>
+    <div class="heading">
+        <h1>Weather Dashboard</h1>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <!-- one big row, first column is search -->
+            <div class="citySearch col-4">
+                <h4>Search for a City:</h4>
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" id ="city-name" aria-describedby="button-addon2">
+                    <div class="input-group-append">
+                         <!-- This button will trigger our AJAX call -->
+                        <button class="btn btn-outline-secondary" type="button" id="button-addon2">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </div>
+                </div>
+                <ul class="list-group">
+                    <!-- append the li items of each city searched to this ul class -->
+                    <li class="list-group-item">Example City list items</li>
+                </ul>
+            </div>
+
+            <!-- second column is everything else, with smaller columns inside -->
+            <div class="col-8 hidden">
+                <div class="card cityInformation" style="height: 300px;">
+                    <div class="city"></div>
+                    <div class="temp"></div>
+                    <div class="humidity"></div>
+                    <div class="wind-speed"></div>
+                    <div class="UVindex"></div>
+                </div>
+                <div class="card col-2">This is where 5 day forecast will be</div>
+            </div>
+            <!-- end row -->
+        </div>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script src="./script.js"></script>
 </body>
+
 </html>
