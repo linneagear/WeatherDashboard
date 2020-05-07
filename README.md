@@ -32,3 +32,26 @@ THEN I am again presented with current and future conditions for that city
 WHEN I open the weather dashboard
 THEN I am presented with the last searched city forecast
 ```
+
+
+# Psuedo Code
+- when I click search, the city name value will appear in the list group class, and all the data will be appended to the cityInformation div
+- when click search, also shows the 5 day forecast
+- each time something is searched, it is saved
+- list items are also buttons, so you can go back
+- if UV index <= 2, favorable/green
+- if UV index >2 and <=5, moderate/yellow
+- if UV index >5, high/red
+- function to Save each city in local storage
+- function to create list items and then render buttons for those list items, then put these inside the click function
+- have separate ajax for uv value
+- another function to get the full forecast
+- initiliaze by get item local storage
+
+
+# Technology used
+moment.js
+jQuery
+font awesome
+bootstrap
+weather api
