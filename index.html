@@ -22,7 +22,7 @@
     <div class="container">
         <div class="row">
             <!-- one big row, first column is search -->
-            <div class="citySearch col-4">
+            <div class="citySearch col-sm-6 col-md-3">
                 <h4>Search for a City:</h4>
                 <div class="input-group mb-3">
                     <input type="text" class="form-control" id="city-name" aria-describedby="button-addon2">
@@ -33,14 +33,14 @@
                         </button>
                     </div>
                 </div>
+                <!-- append the li items of each city searched to this ul class -->
                 <ul class="list-group">
-                    <!-- append the li items of each city searched to this ul class -->
                     <li class="list-group-item">Example City list items</li>
                 </ul>
             </div>
 
             <!-- second column is everything else, with smaller columns inside -->
-            <div class="col-8 hidden">
+            <div class="mt-4 col-md-9 hidden">
                 <div class="card cityInformation" style="height: 300px;">
                     <p class="city"></p>
                     <p class="temp"></p>
@@ -51,14 +51,7 @@
                 </div>
 
                 <h3>5-Day Forecast</h3>
-                <div class="row">
-                    <div class="card col-2 fiveDay">
-                        Date
-                        weather icon
-                        temp
-                        humidity
-                    </div>
-                </div>
+                <div class="row" id="forecast"></div>
             </div>
             <!-- end row -->
         </div>
