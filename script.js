@@ -1,6 +1,6 @@
 var cities = [];
 var apiKey = "40d5fe5a931b845401c21e91e7d7a4ef";
-var currentDay = moment().subtract(10, 'days').calendar();
+var currentDay = moment().format('L');
 
 
 $(document).ready(function() {
@@ -26,7 +26,7 @@ function getCurrentConditions() {
         url: queryURL,
         method: "GET"
     }).then(function(response) {
-        console.log(response);
+        console.log(response.weather);
 
         // grab weather icon
         var image = $("<img>").attr("src", "https://openweathermap.org/img/wn/" + response.weather[0].icon + ".png")
@@ -60,13 +60,13 @@ function getCurrentForecast() {
                 
                 var temperatureF = ((response.list[i].main.temp - 273.15) * 1.8 + 32).toFixed(2);;
 
-                // var date = 
+                var date = $("<h4>").text(moment(response.list[i].dt, "X").format('l'));
                 var img = $("<img>").attr("class", "card-img-top").attr("src", "https://openweathermap.org/img/wn/" + response.list[i].weather[0].icon + "@2x.png");
                 var dailyTemp = $("<p>").text("Temp: " + temperatureF + "°F");
                 var humidity = $("<p>").text("Humidity: " + response.list[i].main.humidity + "%");
 
                 // append each new tag to the card body
-                cardBody.append(img, dailyTemp, humidity);
+                cardBody.append(date, img, dailyTemp, humidity);
                 // append the card body to the card
                 newCard.append(cardBody);
                 // append the entire card to the forecast div
