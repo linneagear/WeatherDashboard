@@ -25,7 +25,7 @@
             <div class="citySearch col-sm-6 col-md-3">
                 <h4>Search for a City:</h4>
                 <div class="input-group mb-3">
-                    <input type="text" class="form-control" id="city-name" aria-describedby="button-addon2">
+                    <input type="text" class="form-control city-name" id="city-name" aria-describedby="button-addon2">
                     <div class="input-group-append">
                         <!-- This button will trigger our AJAX call -->
                         <button class="btn btn-outline-secondary" type="button" id="button-addon2">
@@ -36,9 +36,7 @@
                 <button class="btn btn-outline-secondary" type="button" id="clearBtn">Clear History</button>
                 <br>
                 <!-- append the li items of each city searched to this ul class -->
-                <ul class="list-group">
-                    <li class="list-group-item">Example City list items</li>
-                </ul>
+                <ul class="cities-view"></ul>
             </div>
 
             <!-- second column is everything else, with smaller columns inside -->

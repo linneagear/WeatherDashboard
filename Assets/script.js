@@ -1,36 +1,64 @@
-var cities = [];
-var apiKey = "40d5fe5a931b845401c21e91e7d7a4ef";
-var currentDay = moment().format('L');
-
-
 $(document).ready(function () {
+
+    var cities = [];
+    var apiKey = "40d5fe5a931b845401c21e91e7d7a4ef";
+    var currentDay = moment().format('L');
+    var city = $("#city-name").val().trim();
+    // var searchHistory = localStorage.getItem("weather");
+    // console.log(searchHistory);
+
     // when search is clicked
     $("#button-addon2").on("click", function (event) {
-
-        // put everything below inside a function, and on click at the end calling those functions
         event.preventDefault();
-        addButtonListener();
+
+        var city = $("#city-name").val().trim();
+        cities.push(city);
+
+        $(".city").text(city)
+
+        displaySearch();
         getCurrentConditions();
         getCurrentForecast();
+        console.log(cities);
     });
 
+    // function renderButtons() {
+    //     // Deleting the cities prior to adding new cities
+    //     // (this is necessary otherwise we will have repeat buttons)
+    //     $(".cities-view").empty();
 
-    function renderButtons() {
+    //     for (var i = 0; i < cities.length; i++) {
+    //         // create a button for each city
+    //         var historyItem = $("<button>");
+    //         var cityDiv = $("<div class='city2'>");
+    //         historyItem.addClass("city2")
 
-    
-    
+    //         historyItem.attr("data-name", cities[i]);
+
+    //         historyItem.text(cities[i]);
+    //         historyItem.append(cityDiv);
+    //         $(".cities-view").append(historyItem);
+    //     }
+    // }
+
+    $("#clearBtn").on("click", function (event) {
+        $(".cities-view").empty();
+    });
+
+    // display the searched city
+    function displaySearch(newCity) {
+        $(".cities-view").empty();
+        console.log(cities);
+        localStorage.setItem("weather", JSON.stringify(cities))
+
+        for (var i = 0; i < cities.length; i++) {
+            var cityName = $("<button>");
+            cityName.addClass("new-city-p");
+            cityName.attr(cities[i]);
+            cityName.text(cities[i]);
+            $(".cities-view").append(cityName);
+        }
     }
-
-    function addButtonListener() {
-
-        var buttonID = "#button-addon2";
-        var itemKey = "text";
-        // set to storage when button is clicked
-        $(buttonID).on("click", function () {
-            var city = $("#city-name").val().trim();
-            localStorage.setItem(itemKey, city);
-        })
-   }
 
     function getCurrentConditions() {
         // show the 5 day forecast 
@@ -52,6 +80,7 @@ $(document).ready(function () {
             console.log(response.weather[0]);
             // transfer content to html
             $(".city").html("<h2>" + response.name + " " + currentDay + " " + image);
+            $(".date").html("<h2>" + currentDay + " " + image)
             // convert temp to degrees F
             var tempF = (response.main.temp - 273.15) * 1.8 + 32;
             $(".temp").text("Temperature (°F): " + tempF.toFixed(2) + "°F");
@@ -70,13 +99,13 @@ $(document).ready(function () {
                 // value is the ultraviolet index
                 var uvIndex = response.value;
                 var color = "green";
-                if (uvIndex > 10){
+                if (uvIndex > 10) {
                     color = "red";
                 }
-                else if (uvIndex > 4){
+                else if (uvIndex > 4) {
                     color = "orange";
                 };
-            
+
                 var uvSpan = $("<span>").text("UV Index: " + uvIndex).css("color", color)
                 $(".UVindex").append(uvSpan);
             });
@@ -120,13 +149,14 @@ $(document).ready(function () {
             }
         });
 
-
-        // add a div for each day, in a function
-
     }
 
+    $(".cities-view").on("click", ".new-city-p", function (event) {
+        console.log(event.currentTarget.innerText);
+        event.preventDefault();
+        $(".city").text(event.currentTarget.innerText);
+        getCurrentConditions(event.currentTarget.innerText);
+        getCurrentForecast(event.currentTarget.innerText);
+    })
 
-    // save storage
-    // function to add to list
-
-});
+})
