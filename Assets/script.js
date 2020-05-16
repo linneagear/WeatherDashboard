@@ -28,23 +28,23 @@ displaySearch();
         localStorage.setItem("weather", JSON.stringify(cities)); 
     }
 
+   // when saved city button is clicked, run these two functions
+   $(".city-btn").on("click", function (event) {
+    event.preventDefault();
+    getCurrentConditions()
+    getCurrentForecast()
+});
+
     function renderButtons() {
         var btn = $("<button>");
         var city = $("#city-name").val().trim();
-        btn.addClass("city-btn").css("display", "block",);
+        btn.addClass("btn btn-outline-secondary city-btn").css("display", "block",);
         btn.attr("data-name", city);
         btn.text(city);
         $(".cities-view").prepend(btn);
 
         listClicker();
     }
-
-    // when saved city button is clicked, run these two functions
-    $(".city-btn").on("click", function (event) {
-        event.preventDefault();
-        getCurrentConditions()
-        getCurrentForecast()
-    });
 
     function listClicker() {
         $(".city-btn").on("click", function(event){
@@ -91,9 +91,7 @@ displaySearch();
             console.log(response);
 
             // grab weather icon
-            var weather = JSON.stringify(response.weather);
-            console.log(weather)
-            var image = $("<img>").attr("src", "https://openweathermap.org/img/wn/" + weather[0].icon + ".png")
+            var image = $("<img>").attr("src", "https://openweathermap.org/img/wn/" + response.weather[0].icon + ".png")
     
             // transfer content to html
             $(".city").html("<h2>" + response.name + " " + currentDay + " " + image);
