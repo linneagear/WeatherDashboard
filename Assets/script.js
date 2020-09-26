@@ -93,8 +93,8 @@ displaySearch();
             // Adds the icon image to the html
             $("#cityWeatherIcon").attr("src", "https://openweathermap.org/img/wn/" + response.weather[0].icon + ".png");
             // transfer content to html
-            $(".city").html("<h2>" + response.name + " " + currentDay + " " + image);
-            $(".date").html("<h2>" + currentDay + " " + image)
+            $(".city").html("<h2>" + response.name + " " + currentDay);
+            $(".date").html("<h2>" + currentDay)
             // convert temp to degrees F
             var tempF = (response.main.temp - 273.15) * 1.8 + 32;
             $(".temp").text("Temperature (°F): " + tempF.toFixed(2) + "°F");
