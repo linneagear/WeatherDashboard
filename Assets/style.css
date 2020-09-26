@@ -1,22 +1,46 @@
+body {
+    margin: 0;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    height: 100%;
+  }
+
 .heading {
     text-align: center;
-    background: rgb(41, 41, 41);
     color: white;
-    padding: 20px;
+    padding: 30px;
+    background: linear-gradient(184deg, #edd186, #c177cc);
 }
 
+
 .container {
-    margin-left: 10px;
-    margin-right: 10px;
+   margin-top: 20px;
+   margin-bottom: 20px;
 }
 
 .card {
     margin: 10px;
     padding: 10px;
+    border: none;
+    background: linear-gradient(184deg, #edd186, #c177cc);
+    background-size: 100% 100%;
 }
 
 #button-addon2 {
-    background: rgb(86, 150, 247);
+    background-color: #dbb86c;
+    border: none;
+}
+
+#clearBtn {
+    background-color: #dbb86c;
+    color: white;
+    border: none;
+    border-radius: 3px;
+    padding: 0.65rem 1rem;
+    font-family: "Josefin Sans",sans-serif;
+    line-height: 1;
+    text-decoration: none;
+    cursor: pointer;
 }
 
 .fa-search {
@@ -31,11 +55,37 @@
     display: block;
 }
 
-.fiveDay {
-    background-color: rgb(44, 102, 211);
-    color: white;
-}
 
 .citySearch {
     text-align: center;
+}
+
+.footer {
+    font-size: 15px;
+    text-align: center;
+    color: #665077;
+  }
+
+  
+.footerLinks {
+    font-size: 20px;
+  }
+
+a:link {
+    color: #665077;
+    text-decoration: none;
+  }
+  
+a:visited {
+    color: #665077;
+    text-decoration: none;
+  }
+
+a:hover {
+    color: #d8b873;
+    transition: .5s ease;
+}
+
+.city-btn {
+    margin: 5px;
 }
