@@ -90,9 +90,8 @@ displaySearch();
         }).then(function (response) {
             console.log(response);
 
-            // grab weather icon
-            var image = $("<img>").attr("src", "https://openweathermap.org/img/wn/" + response.weather[0].icon + ".png")
-    
+            // Adds the icon image to the html
+            $("#cityWeatherIcon").attr("src", "https://openweathermap.org/img/wn/" + response.weather[0].icon + ".png");
             // transfer content to html
             $(".city").html("<h2>" + response.name + " " + currentDay + " " + image);
             $(".date").html("<h2>" + currentDay + " " + image)
