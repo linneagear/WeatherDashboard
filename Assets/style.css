@@ -1,17 +1,9 @@
-body {
-    margin: 0;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    height: 100%;
-  }
-
 .heading {
     text-align: center;
     color: white;
     padding: 30px;
     background: linear-gradient(184deg, #edd186, #c177cc);
 }
-
 
 .container {
    margin-top: 20px;
@@ -26,7 +18,7 @@ body {
     background-size: 100% 100%;
 }
 
-#button-addon2 {
+#searchButton {
     background-color: #dbb86c;
     border: none;
 }
@@ -58,32 +50,6 @@ body {
 
 .citySearch {
     text-align: center;
-}
-
-.footer {
-    font-size: 15px;
-    text-align: center;
-    color: #665077;
-  }
-
-  
-.footerLinks {
-    font-size: 20px;
-  }
-
-a:link {
-    color: #665077;
-    text-decoration: none;
-  }
-  
-a:visited {
-    color: #665077;
-    text-decoration: none;
-  }
-
-a:hover {
-    color: #d8b873;
-    transition: .5s ease;
 }
 
 .city-btn {

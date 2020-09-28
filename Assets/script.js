@@ -1,87 +1,96 @@
-$(document).ready(function () {
+function initPage() {
 
-    var cities = [];
+    // var cities = [];
     var apiKey = "69ae837f8b98c772b7dc3338e1b59cd3";
     var currentDay = moment().format('L');
-    var city = $("#city-name").val().trim();
+    var historyEl = document.getElementById("cities-view");
+    var searchHistory = JSON.parse(localStorage.getItem("weather")) || [];
+    var searchEl = document.getElementById("searchButton");
+    // var city = $("#city-name").val().trim();
 
-displaySearch();
+// displaySearch();
 
     // when the search btuton is clicked
-    $("#button-addon2").on("click", function (event) {
-        event.preventDefault();
+    // $("#searchButton").on("click", function (event) {
+    //     event.preventDefault();
     
-        // Declare Variables
-        var city = $("#city-name").val().trim();
+    //     // Declare Variables
+    //     var city = $("#city-name").val().trim();
     
-        // Update Search History
-        cities.push(city);
+    //     // Update Search History
+    //     cities.push(city);
 
-        // Function calls
-        getCurrentConditions();
-        getCurrentForecast();
-        renderButtons();
-        storeCities();
+    //     localStorage.setItem("weather", JSON.stringify(cities)); 
+
+    //     // Function calls
+    //     getCurrentConditions();
+    //     getCurrentForecast();
+    //     renderButtons();
+    // });
+
+
+    searchEl.addEventListener("click",function() {
+        var city = $("#city-name").val().trim();
+        getWeather(city);
+        searchHistory.push(city);
+
+        localStorage.setItem("weather", JSON.stringify(searchHistory)); 
+    
+        // renderButtons();
+        renderSearchHistory();
+    })
+
+     // clears search history
+     $("#clearBtn").on("click", function () {
+        // clear out local storage
+        // $(".cities-view").empty();
+        searchHistory = [];
+        renderSearchHistory();
     });
-   
-    function storeCities(){
-        localStorage.setItem("weather", JSON.stringify(cities)); 
-    }
+
 
    // when saved city button is clicked, run these two functions
-   $(".city-btn").on("click", function (event) {
-    event.preventDefault();
-    getCurrentConditions()
-    getCurrentForecast()
-});
-
-    function renderButtons() {
-        var btn = $("<button>");
-        var city = $("#city-name").val().trim();
-        btn.addClass("btn btn-outline-secondary city-btn").css("display", "block",);
-        btn.attr("data-name", city);
-        btn.text(city);
-        $(".cities-view").prepend(btn);
-
-        listClicker();
-    }
-
-    function listClicker() {
-        $(".city-btn").on("click", function(event){
-            event.preventDefault();
-            console.log("hello?");
-            getCurrentConditions();
-            getCurrentForecast();
-        })
-    }
-
-    // display the searched city
-    function displaySearch() {
-        console.log(cities);
-        var savedCities = JSON.parse(localStorage.getItem("cities"));
-        console.log(savedCities)
-
-        for (var i = 0; i < cities.length; i++) {
-            var cityName = $("<button>");
-            cityName.addClass("btn btn-outline-secondary city-btn");
-            cityName.attr(cities[i]);
-            cityName.text(cities[i]);
-            $(".cities-view").append(cityName);
-        }
-    }
-
-    // clears search history
-    $("#clearBtn").on("click", function () {
-        $(".cities-view").empty();
+   $(".city-btn").on("click", function () {
+    // event.preventDefault();
+        getWeather();
+    // getCurrentConditions(city);
+    // getCurrentForecast(city);
     });
 
-    function getCurrentConditions() {
+    // function renderButtons() {
+    //     var btn = $("<button>");
+    //     var city = $("#city-name").val().trim();
+    //     btn.addClass("btn btn-outline-secondary city-btn").css("display", "block",);
+    //     btn.attr("data-name", city);
+    //     btn.text(city);
+    //     $(".cities-view").prepend(btn);
+
+    // }
+
+
+    // display the searched city
+    // function displaySearch() {
+    //     console.log(cities);
+    //     var savedCities = JSON.parse(localStorage.getItem("cities"));
+    //     console.log(savedCities)
+
+    //     for (var i = 0; i < cities.length; i++) {
+    //         var cityName = $("<button>");
+    //         cityName.addClass("btn btn-outline-secondary city-btn");
+    //         cityName.attr(cities[i]);
+    //         cityName.text(cities[i]);
+    //         $(".cities-view").append(cityName);
+    //     }
+    // }
+
+ 
+    function getWeather(cityName) {
         // show the 5 day forecast 
         $(".col-md-9").addClass("show");
         // get user's input
         var city = $("#city-name").val().trim();
         // call API
-        var queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=" + apiKey;
+        var queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + cityName + "&appid=" + apiKey;
 
         // Here we run our AJAX call to the OpenWeatherMap API
         $.ajax({
@@ -107,10 +116,11 @@ displaySearch();
                 url: uvURL,
                 method: "GET"
             }).then(function (response) {
-                console.log(response);
                 $(".UVindex").empty();
                 // value is the ultraviolet index
                 var uvIndex = response.value;
+
+                // set initial color to green
                 var color = "green";
                 if (uvIndex > 10) {
                     color = "red";
@@ -123,21 +133,23 @@ displaySearch();
                 $(".UVindex").append(uvSpan);
             });
         });
-    }
+    
 
-    function getCurrentForecast() {
+    // function getCurrentForecast() {
 
-        var city = $("#city-name").val().trim();
+    // Get last 5 days forecast
+
+        // var city = $("#city-name").val().trim();
         var queryURL = "https://api.openweathermap.org/data/2.5/forecast?q=" + city + "&appid=" + apiKey;
 
         $.ajax({
             url: queryURL,
             method: "GET"
         }).then(function (response) {
-            console.log(response.list);
+         
             // empty forecast div, otherwise the last city will still show
             $("#forecast").empty();
-            // loop through for 3pm
+            // loop through for 3pm time slot
             for (var i = 0; i < response.list.length; i++) {
                 // time is in dt_txt
                 if (response.list[i].dt_txt.indexOf("15:00:00") !== -1) {
@@ -148,8 +160,11 @@ displaySearch();
                     var temperatureF = ((response.list[i].main.temp - 273.15) * 1.8 + 32).toFixed(2);;
 
                     var date = $("<h4>").text(moment(response.list[i].dt, "X").format('l'));
+
                     var img = $("<img>").attr("class", "card-img-top").attr("src", "https://openweathermap.org/img/wn/" + response.list[i].weather[0].icon + "@2x.png");
+
                     var dailyTemp = $("<p>").text("Temp: " + temperatureF + "°F");
+
                     var humidity = $("<p>").text("Humidity: " + response.list[i].main.humidity + "%");
 
                     // append each new tag to the card body
@@ -164,4 +179,25 @@ displaySearch();
 
     }
 
-})
+    function renderSearchHistory() {
+        
+        historyEl.innerHTML = "";
+        for (let i=0; i<searchHistory.length; i++) {
+            const historyItem = document.createElement("input");
+            
+            historyItem.setAttribute("type","text");
+            historyItem.setAttribute("readonly",true);
+            historyItem.setAttribute("class", "form-control d-block bg-white");
+            historyItem.setAttribute("value", searchHistory[i]);
+            historyItem.addEventListener("click",function() {
+                getWeather(historyItem.value);
+            })
+            historyEl.append(historyItem);
+        }
+    }
+
+    renderSearchHistory();
+    
+}
+
+initPage();

@@ -22,32 +22,33 @@
     <div class="container">
         <div class="row">
 
-            <!-- one big row, first column is search -->
+            <!-- Search Column -->
             <div class="citySearch col-sm-6 col-md-3">
                 <h4>Search for a City:</h4>
                 <div class="input-group mb-3">
-                    <input type="text" class="form-control city-name" id="city-name" aria-describedby="button-addon2">
+                    <input type="text" class="form-control city-name" id="city-name" aria-describedby="searchButton">
                     <div class="input-group-append">
 
-                        <!-- This button will trigger our AJAX call -->
-                        <button class="btn btn-outline-secondary" type="button" id="button-addon2">
+                        <!-- This button will trigger our AJAX call to search for city -->
+                        <button class="btn btn-outline-secondary" type="button" id="searchButton">
                             <i class="fas fa-search"></i>
                         </button>
                     </div>
                 </div>
                 <button type="button" id="clearBtn">Clear History</button>
                 <br>
-                <!-- append the li items of each city searched to this ul class -->
-                <ul class="cities-view"></ul>
+                <br>
+                <!-- Appended buttons will go here -->
+                <p>Previous Searches:</p>
+                <ul class="cities-view" id="cities-view"></ul>
             </div>
 
-            <!-- second column is everything else, with smaller columns inside -->
+            <!-- second column is where forecast will display -->
             <div class="mt-4 col-md-9 hidden">
-                <div class="card cityInformation" style="height: 250px;">
+                <div class="card cityInformation">
                     <p class="city"></p>
                     <div class="mf-center">
                         <img id="cityWeatherIcon" src="" alt="Weather status icon">
-                        <p id="iconDes" class="flex-vertical-center"></p>
                       </div>
                     <p class="temp"></p>
                     <p class="humidity"></p>
@@ -60,8 +61,6 @@
             </div>
             <!-- end row -->
         </div>
-
- 
 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
         <script src="./Assets/script.js"></script>
