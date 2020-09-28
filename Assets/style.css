@@ -3,6 +3,11 @@
     color: white;
     padding: 30px;
     background: linear-gradient(184deg, #edd186, #c177cc);
+    font-family: 'Quicksand', sans-serif;
+}
+
+body {
+    font-family: 'Quicksand', sans-serif;
 }
 
 .container {
